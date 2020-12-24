@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+export LDFLAGS="$LDFLAGS -static"
+export PKG_CONFIG="pkgconf --static"
+
+./configure \
+    --prefix=/usr \
+    --disable-nls \
+    --disable-rpath \
+    --disable-shared \
+    shrext=.a \
+    ac_cv_libltdl=yes \
+    ac_cv_libgmp=yes \
+    ac_cv_libunistring=yes
+
+make
+make DESTDIR="$1" install

@@ -1,0 +1,43 @@
+#!/bin/sh -e
+
+export DESTDIR=$1
+
+bin() { install -Dm755 "$1" "$DESTDIR/usr/bin/${2:-${1##*/}}" ;}
+
+sed -i 's|RefindDir=\"\$ThisDir/refind\"|RefindDir="/usr/share/refind"|g' refind-install
+sed -i 's|: $(SHLIB_TARGET)|: $(OBJS)|' refind/Makefile
+
+patch -p0 < force-inline-musl.patch
+
+make -j1 ARCH=$3 gnuefi fs_gnuefi
+
+case $3 in
+    i?86) EFI_ARCH=ia32 ;;
+    x86_64) EFI_ARCH=x64 ;;
+    aarch64) EFI_ARCH=aa64
+esac
+
+bin mkrlconf
+bin mvrefind
+bin refind-mkdefault
+bin refind-install
+bin fonts/mkfont.sh refind-mkfont
+
+for man in docs/man/*.8; do
+    install -Dm644 "$man" "$1/usr/share/man/man${man##*.}/${man##*/}"
+done
+
+mkdir -p "$1/usr/share/refind/tools_${EFI_ARCH}"
+cp -r \
+    "refind/refind_${EFI_ARCH}.efi" \
+    refind.conf-sample \
+    fonts \
+    icons \
+    banners \
+    images \
+    "drivers_${EFI_ARCH}" \
+    "$1/usr/share/refind"
+cp "gptsync/gptsync_${EFI_ARCH}.efi" "$1/usr/share/refind/tools_${EFI_ARCH}/"
+
+mkdir -p "$1/etc/refind.d"
+cp -r keys "$1/etc/refind.d"

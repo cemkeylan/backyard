@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+make
+make INSTALLROOT="$1" PREFIX=/usr LIBDIR=/usr/lib install

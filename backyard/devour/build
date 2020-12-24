@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+mkdir -p "$1/usr/bin"
+"${CC:-cc}" -o "$1/usr/bin/devour" -std=c11 -D_POSIX_C_SOURCE=200809L -static -Wall -Wextra -pedantic -O2 devour.c $(pkgconf --static --libs x11)

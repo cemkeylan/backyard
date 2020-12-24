@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+./do build
+DESTDIR="$1" PREFIX=/usr ./do install

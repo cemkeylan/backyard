@@ -1,0 +1,17 @@
+backyard repository
+===================
+
+These are a collection of packages
+
+- I have dropped,
+- Decided to not include on Carbs Linux,
+- Wasn't interested enough to add to my personal repository.
+
+Long story short, I am not willing to maintain any of these, don't care whether
+they work or not. Feel free to adopt or modify them if it fits your purposes.
+
+
+These are the packages that some people might find interesting:
+
+- librsvg
+- guile

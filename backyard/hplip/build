@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --disable-gui-build \
+    --enable-new-hpcups \
+    --with-mimedir=/usr/share/cups/mime \
+    --disable-network-build \
+    --disable-scan-build \
+    --disable-dbus-build \
+    --disable-fax-build \
+    --enable-cups-drv-install
+
+make
+make DESTDIR="$1" install

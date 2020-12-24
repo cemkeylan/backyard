@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+# export LDFLAGS="$LDFLAGS -static"
+
+./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --disable-servers \
+    --disable-rpath \
+    --disable-rshd \
+    --disable-rlogin \
+    --disable-rlogind \
+    --disable-rcp \
+    --disable-rexec \
+    --disable-nls
+
+make
+make DESTDIR="$1" install
