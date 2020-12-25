@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --sysconfdir=/etc \
+    --docdir=/usr/share/doc/sane \
+    --disable-nls \
+    --disable-rpath \
+
+make
+make DESTDIR="$1" install
+
+install -Dm644 tools/sane-backends.pc   "$1/usr/lib/pkgconfig"
+install -Dm644 tools/udev/libsane.rules "$1/usr/lib/udev/rules.d/90-sane.rules"
