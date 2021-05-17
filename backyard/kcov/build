@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+patch -p1 < musl-fix.patch
+
+export DESTDIR=$1
+export CFLAGS="$CFLAGS -static-libgcc -static-libstdc++"
+# export LDFLAGS="$LDFLAGS -static"
+
+cmake -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DKCOV_STATIC_BUILD=ON
+
+cmake --build   build
+cmake --install build
