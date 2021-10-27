@@ -1,0 +1,11 @@
+automake make
+cairo
+freetype-harfbuzz
+gdk-pixbuf
+glib
+libxcb
+libxkbcommon
+pango
+xcb-util
+xcb-util-wm
+xcb-util-xrm

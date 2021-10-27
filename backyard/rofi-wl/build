@@ -1,0 +1,30 @@
+#!/bin/sh -e
+
+# I have yet to package a software other than this to depend on
+# startup-notification.
+sn_root=$PWD/tmp
+(
+    cd sn
+    ./configure \
+        --prefix=/usr \
+        --disable-shared \
+        lf_cv_sane_realloc=yes \
+        lf_cv_sane_malloc=yes
+
+    make
+    make DESTDIR="$sn_root" install
+)
+
+export CFLAGS="$CFLAGS -I$sn_root/usr/include/startup-notification-1.0"
+export PKG_CONFIG_PATH="$sn_root/usr/lib/pkgconfig${PKG_CONFIG_PATH:+:}$PKG_CONFIG_PATH"
+export LDFLAGS="$LDFLAGS -L$sn_root/usr/lib"
+export PKG_CONFIG=pkgconf\ --static
+export DESTDIR=$1
+
+cl-meson \
+    -Dcolour=true \
+    -Dgtk-settings=true \
+    . output
+
+ninja -C output
+ninja -C output install
