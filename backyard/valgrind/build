@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --enable-tls \
+    --enable-lto \
+    --enable-only64bit \
+    --without-mpicc
+
+make
+make DESTDIR="$1" install
