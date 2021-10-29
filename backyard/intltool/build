@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+printf 'all:\n\ttrue\n\ninstall:\n\ttrue\n\n' > tests/Makefile.in
+
+./configure \
+    --prefix=/usr
+
+make
+make DESTDIR="$1" install
