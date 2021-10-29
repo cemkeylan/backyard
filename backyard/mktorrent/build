@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+# Enable large file support on 32bit
+case $3 in
+    i*86) printf 'USE_LARGE_FILES=1\n' >> Makefile
+esac
+
+make LDFLAGS="$LDFLAGS -static" USE_OPENSSL=1
+clinst -Dm755 mktorrent "$1/usr/bin/mktorrent"
