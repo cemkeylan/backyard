@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --enable-vala
+
+make
+make DESTDIR="$1" install
