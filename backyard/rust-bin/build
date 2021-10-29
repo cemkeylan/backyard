@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+./install.sh \
+    --destdir="$1" \
+    --prefix=/usr \
+    --sysconfdir="$1/etc" \
+    --without=rust-docs \
+    --disable-ldconfig
