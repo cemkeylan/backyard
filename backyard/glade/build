@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+# Empty this crap
+:> help/meson.build
+
+export DESTDIR=$1
+
+cl-meson \
+    -Dman=false \
+    . output
+
+ninja -C output
+ninja -C output install

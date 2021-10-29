@@ -1,0 +1,9 @@
+cairo
+freetype-harfbuzz
+glib
+gobject-introspection make
+gtk+3
+libxml2
+meson make
+pango
+webkit2gtk
