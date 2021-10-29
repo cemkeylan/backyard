@@ -1,0 +1,10 @@
+dbus
+fcft
+fontconfig
+freetype-harfbuzz
+libpng
+meson             make
+scdoc             make
+tllist            make
+wayland
+wayland-protocols make
