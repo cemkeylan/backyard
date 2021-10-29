@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+./configure \
+    --prefix=/usr \
+    --disable-nls \
+    --disable-html \
+    --disable-sourceview \
+    --disable-spell \
+    --disable-tray \
+    --disable-tools
+
+make
+make DESTDIR="$1" install
+
+rm -r "$1/usr/share/locale"
