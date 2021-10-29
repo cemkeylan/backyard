@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+export LDFLAGS="$LDFLAGS -static"
+
+autoreconf -fi
+
+./configure \
+    --prefix=/usr \
+    --disable-shared
+
+make
+make DESTDIR="$1" install
